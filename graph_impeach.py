@@ -21,7 +21,7 @@ def graph():
 
     fig1, ax1 = plt.subplots()
 
-    ax1.pie(data_format['global_total'], labels=data_format['hashtag'], autopct='%1.1f%%', shadow=True, startangle=135)
+    ax1.pie(data_format['global_total'], labels=data_format['prediction'], autopct='%1.1f%%', shadow=True, startangle=135)
 
     ax1.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
 
