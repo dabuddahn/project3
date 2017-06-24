@@ -17,7 +17,6 @@ def graph():
     query = "select prediction, sum(total) as global_total from ml_keywords_table \
              where label = 'DICTATOR' group by prediction"
     data = spark.sql(query)
-    data = data.filter("label='DICTATOR'").show()
     data_format = data.toPandas()
 
     fig1, ax1 = plt.subplots()
