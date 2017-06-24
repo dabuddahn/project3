@@ -14,11 +14,9 @@ def graph():
     spark = sparksession(spark_context.getConf())
     time, date = sys.argv[1:]
     interval_time = ("%s %s" %(date, time))
-    query = "select hashtag, sum(total) as global_total from hashtag_table \
-             where time_stamp between cast('{}' as timestamp) - INTERVAL 1 HOUR and cast('{}' as timestamp) \
-             group by hashtag order by global_total desc limit 10".format(interval_time, interval_time)
+    query = ""select prediction, sum(total) as global_total from ml_keywords_table \
+             where label = 'IMPEACH' group by prediction"
     data = spark.sql(query)
-    data = data.filter("label='IMPEACH'").show()
     data_format = data.toPandas()
 
     fig1, ax1 = plt.subplots()
