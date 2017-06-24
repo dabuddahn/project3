@@ -14,16 +14,14 @@ def graph():
     spark = sparksession(spark_context.getConf())
     time, date = sys.argv[1:]
     interval_time = ("%s %s" %(date, time))
-    query = "select hashtag, sum(total) as global_total from hashtag_table \
-             where time_stamp between cast('{}' as timestamp) - INTERVAL 1 HOUR and cast('{}' as timestamp) \
-             group by hashtag order by global_total desc limit 10".format(interval_time, interval_time)
+    query = "select prediction, sum(total) as global_total from ml_keywords_table \
+             where label = 'DRAIN' group by prediction"
     data = spark.sql(query)
-    data = data.filter("label='DRAIN'").show()
     data_format = data.toPandas()
 
     fig1, ax1 = plt.subplots()
 
-    ax1.pie(data_format['global_total'], labels=data_format['hashtag'], autopct='%1.1f%%', shadow=True, startangle=135)
+    ax1.pie(data_format['global_total'], labels=data_format['prediction'], autopct='%1.1f%%', shadow=True, startangle=135)
 
     ax1.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
 
